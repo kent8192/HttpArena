@@ -13,7 +13,8 @@ ctor = "0.6"
 prost = "=0.14.4"
 reinhardt = { version = "=0.3.3", package = "reinhardt-web", default-features = false, features = ["minimal", "conf", "commands", "db-postgres", "di", "grpc"] }
 reinhardt-di = { version = "=0.3.3", default-features = false }
-# reinhardt-web 0.3.3 does not re-export the DI handler macro (reinhardt-web#5865).
+# Temporary workaround for reinhardt-web#5865: 0.3.3 does not re-export the
+# DI handler macro. Remove this direct dependency after the facade fix ships.
 reinhardt-grpc = { version = "=0.3.3", default-features = false, features = ["di"] }
 rustls = { version = "0.23", features = ["aws-lc-rs"] }
 serde = { version = "1", features = ["derive"] }

@@ -1,0 +1,17 @@
+{
+  "display_name": "Reinhardt WebSocket",
+  "language": "Rust",
+  "type": "emerging",
+  "mode": "standard",
+  "engine": "reinhardt-websocket",
+  "description": "Reinhardt 0.3.3 WebSocket messages and routing contract with its compatible Tokio Tungstenite transport. The /ws endpoint echoes text and binary frames and handles ping/pong and clean close.",
+  "repo": "https://github.com/kent8192/reinhardt-web",
+  "enabled": true,
+  "tests": [
+    "echo-ws",
+    "echo-ws-pipeline"
+  ],
+  "maintainers": [
+    "kent8192"
+  ]
+}

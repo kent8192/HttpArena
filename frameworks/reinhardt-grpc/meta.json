@@ -1,0 +1,19 @@
+{
+  "display_name": "Reinhardt gRPC",
+  "language": "Rust",
+  "type": "emerging",
+  "mode": "standard",
+  "engine": "reinhardt-grpc",
+  "description": "Reinhardt 0.3.3 gRPC support with the framework's GrpcServerSettings and its compatible Tonic transport. Plaintext HTTP/2 is served on :8080 and TLS HTTP/2 on :8443.",
+  "repo": "https://github.com/kent8192/reinhardt-web",
+  "enabled": true,
+  "tests": [
+    "unary-grpc",
+    "unary-grpc-tls",
+    "stream-grpc",
+    "stream-grpc-tls"
+  ],
+  "maintainers": [
+    "kent8192"
+  ]
+}

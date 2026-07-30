@@ -1,0 +1,20 @@
+[package]
+name = "httparena-reinhardt-grpc"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+prost = "=0.14.4"
+reinhardt = { version = "=0.3.3", package = "reinhardt-web", default-features = false, features = ["minimal", "grpc"] }
+tokio = { version = "1", features = ["macros", "rt-multi-thread", "fs"] }
+tokio-stream = "0.1"
+tonic = { version = "=0.14.6", features = ["transport", "tls-aws-lc"] }
+tonic-prost = "=0.14.6"
+
+[build-dependencies]
+tonic-prost-build = "=0.14.6"
+
+[profile.release]
+codegen-units = 1
+lto = "thin"
+strip = true

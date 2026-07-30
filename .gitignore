@@ -11,6 +11,8 @@ obj/
 bin/
 frameworks/*/build/
 !frameworks/fletch/bin/
+!frameworks/reinhardt/src/bin/
+!frameworks/reinhardt/src/bin/**
 target/
 frameworks/blitz/zig-linux-*
 frameworks/blitz/.zig-cache

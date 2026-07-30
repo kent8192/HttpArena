@@ -1,0 +1,16 @@
+[package]
+name = "httparena-reinhardt-websocket"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+futures-util = "0.3"
+reinhardt = { version = "=0.3.3", package = "reinhardt-web", default-features = false, features = ["minimal", "websockets"] }
+reinhardt-websockets = { version = "=0.3.3", default-features = false }
+tokio = { version = "1", features = ["io-util", "macros", "rt-multi-thread", "net", "time"] }
+tokio-tungstenite = "0.28"
+
+[profile.release]
+codegen-units = 1
+lto = "thin"
+strip = true

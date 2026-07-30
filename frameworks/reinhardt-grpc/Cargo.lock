@@ -1730,6 +1730,8 @@ version = "0.1.0"
 dependencies = [
  "ctor 0.6.3",
  "prost",
+ "reinhardt-di",
+ "reinhardt-grpc",
  "reinhardt-web",
  "rustls",
  "serde",
@@ -1739,6 +1741,7 @@ dependencies = [
  "tonic",
  "tonic-prost",
  "tonic-prost-build",
+ "tracing",
 ]
 
 [[package]]
@@ -3825,6 +3828,8 @@ dependencies = [
  "prost",
  "reinhardt-conf",
  "reinhardt-core",
+ "reinhardt-di",
+ "reinhardt-grpc-macros",
  "serde",
  "thiserror",
  "tokio",
@@ -3834,6 +3839,18 @@ dependencies = [
  "tonic-prost-build",
  "tracing",
  "uuid",
+]
+
+[[package]]
+name = "reinhardt-grpc-macros"
+version = "0.3.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5e5e9f2c3b9f707b7a668dcfd6daa486aa7356fc3a7dadba6947416facf2d5b7"
+dependencies = [
+ "proc-macro-crate",
+ "proc-macro2",
+ "quote",
+ "syn 2.0.119",
 ]
 
 [[package]]

@@ -1,0 +1,16 @@
+//! HttpArena benchmark application.
+
+use reinhardt::app_config;
+
+pub mod admin;
+pub mod models;
+pub mod serializers;
+pub mod services;
+pub mod tests;
+pub mod urls;
+pub mod views;
+
+pub use views::{ArenaHandler, load_dataset};
+
+#[app_config(name = "benchmark", label = "benchmark")]
+pub struct BenchmarkConfig;

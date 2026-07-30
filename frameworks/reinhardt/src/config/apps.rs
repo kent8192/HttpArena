@@ -5,5 +5,5 @@
 use reinhardt::installed_apps;
 
 installed_apps! {
-    // Apps will be added here by `reinhardt-admin startapp`.
+    benchmark: "benchmark",
 }

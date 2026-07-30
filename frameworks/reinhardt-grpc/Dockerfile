@@ -10,11 +10,11 @@ COPY build.rs ./
 COPY proto ./proto
 RUN mkdir -p src \
     && printf 'fn main() {}\n' > src/main.rs \
-    && cargo build --release --locked \
+    && cargo build --release --locked --bin httparena-reinhardt-grpc \
     && rm -rf src target/release/httparena-reinhardt-grpc target/release/deps/httparena_reinhardt_grpc*
 
 COPY src ./src
-RUN RUSTFLAGS="-C target-cpu=native" cargo build --release --locked
+RUN RUSTFLAGS="-C target-cpu=native" cargo build --release --locked --bin httparena-reinhardt-grpc
 
 FROM debian:bookworm-slim
 COPY --from=build /app/target/release/httparena-reinhardt-grpc /server

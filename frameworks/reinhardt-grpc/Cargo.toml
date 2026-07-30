@@ -2,11 +2,24 @@
 name = "httparena-reinhardt-grpc"
 version = "0.1.0"
 edition = "2024"
+default-run = "httparena-reinhardt-grpc"
+
+[[bin]]
+name = "httparena-reinhardt-grpc"
+path = "src/main.rs"
+
+[[bin]]
+name = "manage"
+path = "src/bin/manage.rs"
 
 [dependencies]
+ctor = "0.6"
 prost = "=0.14.4"
-reinhardt = { version = "=0.3.3", package = "reinhardt-web", default-features = false, features = ["minimal", "grpc"] }
-tokio = { version = "1", features = ["macros", "rt-multi-thread", "fs"] }
+reinhardt = { version = "=0.3.3", package = "reinhardt-web", default-features = false, features = ["minimal", "conf", "commands", "db-postgres", "grpc"] }
+rustls = { version = "0.23", features = ["aws-lc-rs"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1.0"
+tokio = { version = "1", features = ["full"] }
 tokio-stream = "0.1"
 tonic = { version = "=0.14.6", features = ["transport", "tls-aws-lc"] }
 tonic-prost = "=0.14.6"

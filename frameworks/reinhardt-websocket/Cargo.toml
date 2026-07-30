@@ -2,12 +2,24 @@
 name = "httparena-reinhardt-websocket"
 version = "0.1.0"
 edition = "2024"
+default-run = "httparena-reinhardt-websocket"
+
+[[bin]]
+name = "httparena-reinhardt-websocket"
+path = "src/main.rs"
+
+[[bin]]
+name = "manage"
+path = "src/bin/manage.rs"
 
 [dependencies]
+ctor = "0.6"
 futures-util = "0.3"
-reinhardt = { version = "=0.3.3", package = "reinhardt-web", default-features = false, features = ["minimal", "websockets"] }
+reinhardt = { version = "=0.3.3", package = "reinhardt-web", default-features = false, features = ["minimal", "conf", "commands", "db-postgres", "websockets"] }
 reinhardt-websockets = { version = "=0.3.3", default-features = false }
-tokio = { version = "1", features = ["io-util", "macros", "rt-multi-thread", "net", "time"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1.0"
+tokio = { version = "1", features = ["full"] }
 tokio-tungstenite = "0.28"
 
 [profile.release]

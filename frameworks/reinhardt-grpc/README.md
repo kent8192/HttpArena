@@ -1,6 +1,6 @@
 # Reinhardt gRPC for HttpArena
 
-This entry benchmarks the gRPC surface of Reinhardt 0.3.3 using the
+This entry benchmarks the gRPC surface of Reinhardt 0.3.5 using the
 framework's gRPC configuration and its compatible Tonic transport.
 
 - Plaintext HTTP/2: `:8080`

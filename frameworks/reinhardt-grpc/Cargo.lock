@@ -1731,7 +1731,6 @@ dependencies = [
  "ctor 0.6.3",
  "prost",
  "reinhardt-di",
- "reinhardt-grpc",
  "reinhardt-web",
  "rustls",
  "serde",
@@ -3498,9 +3497,9 @@ checksum = "d6f6ff9a378485b298a5286656da665ba74413d36db0979633275d2e708145d4"
 
 [[package]]
 name = "reinhardt-apps"
-version = "0.3.3"
+version = "0.3.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4b442335d8b58a84781a5b8ca086ea1971e228a4b36510fc56caa64895e1b736"
+checksum = "ec8b2fcd60fe79959ebe0253da9af820a3213048ac3e2731540216451c881c2f"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -3529,9 +3528,9 @@ dependencies = [
 
 [[package]]
 name = "reinhardt-auth"
-version = "0.3.3"
+version = "0.3.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ecd0873ce0b6651618e24f211040ab27067346c4da26eab44966493b7f9fd44f"
+checksum = "3157c7b93226cf003f276da1b2f9fe846978a1ed8cd7c14758b65265cf90f125"
 dependencies = [
  "async-trait",
  "base64 0.22.1",
@@ -3572,9 +3571,9 @@ dependencies = [
 
 [[package]]
 name = "reinhardt-auth-macros"
-version = "0.3.3"
+version = "0.3.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "24a458f9b4cf264f80d9a2faa1ad4e18ff5811bbe07a91649d752e07a556d975"
+checksum = "70bd5222738378a7eb27f50f12426ce289c0ed3eddd0b98fae563c38cf0e6d22"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -3584,9 +3583,9 @@ dependencies = [
 
 [[package]]
 name = "reinhardt-commands"
-version = "0.3.3"
+version = "0.3.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5164aa9acd341c9d4f8451726159a6421de4e4475294dbb8802282db9a9597b1"
+checksum = "8370e2ec42d0a85c9227562c44cf3948e0315e77e836d19102a743a92d325b76"
 dependencies = [
  "async-trait",
  "bollard",
@@ -3635,9 +3634,9 @@ dependencies = [
 
 [[package]]
 name = "reinhardt-conf"
-version = "0.3.3"
+version = "0.3.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9f55f543bd5384ba2220ea3a2e9509d5c3a47c7c122c3cb9d3e19eec6356755f"
+checksum = "3349d703df934163d1b1e41f28477c64cc43cd7387f7f5d937e9da724bc7c441"
 dependencies = [
  "base64 0.22.1",
  "chrono",
@@ -3664,9 +3663,9 @@ dependencies = [
 
 [[package]]
 name = "reinhardt-core"
-version = "0.3.3"
+version = "0.3.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "32f3fc5b39571d2dd3c7d33fd3606c85cacab28c8700cc212c566e1b93f15751"
+checksum = "c9949ccdb04ae3b6655fe6941ee82e02b9cf372840fc2ea4dc10eaeca0704cdf"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -3710,9 +3709,9 @@ dependencies = [
 
 [[package]]
 name = "reinhardt-db"
-version = "0.3.3"
+version = "0.3.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "23a89021d838c080b85bfc613b0aba2096265e89e6acda791816cad44fe54d57"
+checksum = "ee95d50cf776730e7452ca547ae8035381c880651c237e22b26ab72369a86c7a"
 dependencies = [
  "aes-gcm",
  "aho-corasick",
@@ -3764,9 +3763,9 @@ dependencies = [
 
 [[package]]
 name = "reinhardt-di"
-version = "0.3.3"
+version = "0.3.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "505fe0debfb82ebe6ee75b50e4abfed76b5f9e2340bb1f8f3a6b80c7400ecf66"
+checksum = "cfd39985d8c2e0daa1bfccf4be7c659156fe6b71ca332064867b8010eb6a23ad"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3789,9 +3788,9 @@ dependencies = [
 
 [[package]]
 name = "reinhardt-di-macros"
-version = "0.3.3"
+version = "0.3.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b6951aa20af612d3109678713f6cfac18663881c6f962b96d9936a5684869b57"
+checksum = "59368c3fc4f88d8db4efb25f64e0e2a0a581f2774817e15abafb8e1382881f80"
 dependencies = [
  "proc-macro-crate",
  "proc-macro2",
@@ -3801,9 +3800,9 @@ dependencies = [
 
 [[package]]
 name = "reinhardt-forms"
-version = "0.3.3"
+version = "0.3.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4488a98df79a8d3bc44ce75f70701efd7a173cce7d23ef4c0b90c15a3599fb66"
+checksum = "a300d10295b8fd3bce0df300948d423fb853e6c49b3e7f6fe72103cfced3767a"
 dependencies = [
  "anyhow",
  "aquamarine",
@@ -3819,9 +3818,9 @@ dependencies = [
 
 [[package]]
 name = "reinhardt-grpc"
-version = "0.3.3"
+version = "0.3.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a50afe29f009b3c89395c180f0a85c5eff20d13d02d8f0bd22227fca3d30252f"
+checksum = "2b337e032deaa17291222517555404055d2c115de5200f1811a3ee4fcb19810d"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -3843,21 +3842,22 @@ dependencies = [
 
 [[package]]
 name = "reinhardt-grpc-macros"
-version = "0.3.3"
+version = "0.3.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5e5e9f2c3b9f707b7a668dcfd6daa486aa7356fc3a7dadba6947416facf2d5b7"
+checksum = "a31429283a7f1aa335a7ea2310d5545e61e303c580b2bbdfb6163c2f2b1057e7"
 dependencies = [
  "proc-macro-crate",
  "proc-macro2",
  "quote",
  "syn 2.0.119",
+ "toml_edit",
 ]
 
 [[package]]
 name = "reinhardt-http"
-version = "0.3.3"
+version = "0.3.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "572cac093a9a3a53b913a992e493a0304992cc6cacee200715ecf024afcc5508"
+checksum = "351387e519c715402e587601dcf8c1f313234634f8435cbe64912732baa2a7bc"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3878,9 +3878,9 @@ dependencies = [
 
 [[package]]
 name = "reinhardt-macros"
-version = "0.3.3"
+version = "0.3.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3ca42411a3888bd66ec0a58f892e160826e08577bc24d7b70e245efd688fbc37"
+checksum = "5ff12e3346d91b178da4213989344e48f602954ab639163690fb0ff19803a2dc"
 dependencies = [
  "ctor 0.8.0",
  "inventory",
@@ -3893,9 +3893,9 @@ dependencies = [
 
 [[package]]
 name = "reinhardt-mail"
-version = "0.3.3"
+version = "0.3.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "292a95272b271eb50c2e7c405af34f51060f31ce8dffff344ac2d70b9dbc1f08"
+checksum = "b1c348fbab3f3bb1e2dcc7194db6123261b55ac0e10bd4082c36a36b05f101bb"
 dependencies = [
  "async-trait",
  "chrono",
@@ -3915,9 +3915,9 @@ dependencies = [
 
 [[package]]
 name = "reinhardt-manouche"
-version = "0.3.3"
+version = "0.3.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "efa16ae615c7308fc38b1763473ebb0c17b66d8023ead98b32b5c44718261c0d"
+checksum = "93d53f4954157e11f5a8ef14dbcef7c24ba96d8e587ffbcafcb26a9a4fcfec79"
 dependencies = [
  "convert_case",
  "darling 0.20.11",
@@ -3928,9 +3928,9 @@ dependencies = [
 
 [[package]]
 name = "reinhardt-middleware"
-version = "0.3.3"
+version = "0.3.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7f459f7dc79086ca165a37043c2685234e07e1eea46ea2a60ba6b00e10a4fc58"
+checksum = "44826254789dab4d3663cede2f97c803f94dfa125177152284d4ec97bb2f72f9"
 dependencies = [
  "async-trait",
  "base64 0.22.1",
@@ -3960,9 +3960,9 @@ dependencies = [
 
 [[package]]
 name = "reinhardt-pages"
-version = "0.3.3"
+version = "0.3.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "90330a900aebc80a1e434da65b33bbb353c103653d25080458ecaf628a25e0dd"
+checksum = "6c592ff01e17e4642d5d1293a54e36d03e24379500e60b7c23090158b78a0c9f"
 dependencies = [
  "async-trait",
  "bon",
@@ -4000,9 +4000,9 @@ dependencies = [
 
 [[package]]
 name = "reinhardt-pages-ast"
-version = "0.3.3"
+version = "0.3.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f55bc17447630d6ec8766cbca79ad634dc726a2ae43a122ecfec6497bf336e39"
+checksum = "8ebb1ff0dd25d5aa2e5784c87f1445ac7452279b3a070f6021d62dfc1c7382fc"
 dependencies = [
  "convert_case",
  "darling 0.20.11",
@@ -4014,9 +4014,9 @@ dependencies = [
 
 [[package]]
 name = "reinhardt-pages-macros"
-version = "0.3.3"
+version = "0.3.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1877dfece4f61e0ecd2dd89a5676d188d08bce5076fc5e614ad6e13a4f2144a5"
+checksum = "0a3e4267f427045c5bf6fc4cc4653229ae2c4c05d56eac551b358da92d8f3506"
 dependencies = [
  "convert_case",
  "darling 0.20.11",
@@ -4029,9 +4029,9 @@ dependencies = [
 
 [[package]]
 name = "reinhardt-query"
-version = "0.3.3"
+version = "0.3.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b76cc666b7d953a21465625b97eb8c388932737172ad1f94132dccf3fa005238"
+checksum = "f81f851073ab51864ddc8d5cda4e0731685e3645d9fe65ce0de820bdb3d79a0c"
 dependencies = [
  "bigdecimal",
  "chrono",
@@ -4044,9 +4044,9 @@ dependencies = [
 
 [[package]]
 name = "reinhardt-query-macros"
-version = "0.3.3"
+version = "0.3.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e776592704fd47edd70f6eca8c76eafa849bf73460b5b0e413917e668b490ba9"
+checksum = "594615f335ba0450fbde2e9ab8b93426c421eb8440d83d209fc5dabc29a0623f"
 dependencies = [
  "heck",
  "proc-macro2",
@@ -4056,9 +4056,9 @@ dependencies = [
 
 [[package]]
 name = "reinhardt-rest"
-version = "0.3.3"
+version = "0.3.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f23ce819442b60998ad8c2989b90403d3a6c43b57b7134cdb5a0106c1d04562d"
+checksum = "d3e92da7890bc412012edce33b142bac901fdd5b639ddeb6a74800e3f99a0b0d"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -4104,15 +4104,15 @@ dependencies = [
 
 [[package]]
 name = "reinhardt-router"
-version = "0.3.3"
+version = "0.3.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "099d741b068ad028f790e4ec908c7d2da40c254ddfac1cfb197831bac07e252d"
+checksum = "a49fbc6bc8f6610c26d9fcaff0a0e55c9d043c6b8b04fd7cba0b87893b1b26c9"
 
 [[package]]
 name = "reinhardt-routers-macros"
-version = "0.3.3"
+version = "0.3.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0bd660451ff17e9ec375092672c1b58a70b82f5c21bfb8200c412d286f897eb0"
+checksum = "2c1eb3ebe0081016a3955f3daa95bb0f48f0fad18c9ea659f3290b313c8cb209"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -4121,9 +4121,9 @@ dependencies = [
 
 [[package]]
 name = "reinhardt-server"
-version = "0.3.3"
+version = "0.3.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d8bc72392fc391f1f2cb8b846850f7e663b98f5b5748e5090eda03d708ed96ec"
+checksum = "ec2a0d9ad398026fa04088b202672740c57c2e6713bab479d1eb7abe809086dd"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4143,9 +4143,9 @@ dependencies = [
 
 [[package]]
 name = "reinhardt-shortcuts"
-version = "0.3.3"
+version = "0.3.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f108d56359ab672ad3e0ecb3d6ade0f9d452f42b844822f8dd14cf19c997e289"
+checksum = "6969cc243f75ee48912cb11a2ac7a7875400fd969887a104af01ce8d95b014db"
 dependencies = [
  "bytes",
  "hyper",
@@ -4162,9 +4162,9 @@ dependencies = [
 
 [[package]]
 name = "reinhardt-throttling"
-version = "0.3.3"
+version = "0.3.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3660a582a2e1bb7d6f8b225d2852c08ae6e7437b4af42373dee1ebe72c27e5a5"
+checksum = "8da9cd955bcc5ce65b660a2de3eb668230931173b91b0a084aa73d6b6e387269"
 dependencies = [
  "async-trait",
  "parking_lot",
@@ -4174,9 +4174,9 @@ dependencies = [
 
 [[package]]
 name = "reinhardt-urls"
-version = "0.3.3"
+version = "0.3.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "943792e62a2c0e4ea283b5e798f9ba7c2c7114595a8f440fd59a62ffcc36ffb9"
+checksum = "b70901d25d5f657dd6573ba995fec6b7ff9e1224b261f0a641afaa0971eeea5c"
 dependencies = [
  "aho-corasick",
  "async-trait",
@@ -4208,9 +4208,9 @@ dependencies = [
 
 [[package]]
 name = "reinhardt-utils"
-version = "0.3.3"
+version = "0.3.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "cd99d8d130a42a27633484db68cf93dd8c4e86cabede93870edb755b9f72e704"
+checksum = "4c9bc082128c2d822d098e055a405e0c84a867b3ee82804b6c7d729fa0e58118"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -4245,9 +4245,9 @@ dependencies = [
 
 [[package]]
 name = "reinhardt-views"
-version = "0.3.3"
+version = "0.3.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4b327d8c138976c2b8dff55e616322cb2ad330ea720dbaca6eb51d38aa35c46e"
+checksum = "f50dbade4f5a9565e0f371c7dc697f35dfebd4aa923806da17b5752026bb4f3e"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4280,9 +4280,9 @@ dependencies = [
 
 [[package]]
 name = "reinhardt-web"
-version = "0.3.3"
+version = "0.3.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a6a61a0628addde7decf0923973c68713441b5e25392a109ff022a3b0c989db2"
+checksum = "f07020e42de48c290f9b7b0d0fe09c5820c134700e99686f472271a2003232df"
 dependencies = [
  "async-trait",
  "bytes",

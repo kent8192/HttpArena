@@ -3,8 +3,8 @@
 use std::pin::Pin;
 use std::sync::Arc;
 
+use reinhardt::grpc::grpc_handler;
 use reinhardt_di::{DiResult, Injectable, InjectionContext, SingletonScope};
-use reinhardt_grpc::grpc_handler;
 use tokio_stream::{Stream, StreamExt};
 use tonic::{Request, Response, Status, Streaming};
 

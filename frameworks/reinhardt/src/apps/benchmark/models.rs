@@ -1,87 +1,39 @@
-use serde::{Deserialize, Serialize};
+//! Persistent models for the HttpArena benchmark application.
 
-#[derive(Deserialize, Clone)]
-pub struct Rating {
-    pub score: i64,
-    pub count: i64,
-}
+use reinhardt::prelude::*;
 
-#[derive(Deserialize, Clone)]
-pub struct DatasetItem {
+/// The shared `items` table used by the async-database and CRUD profiles.
+#[model(app_label = "benchmark", table_name = "items")]
+#[derive(serde::Deserialize, serde::Serialize, Clone)]
+pub struct Item {
+    #[field(primary_key = true)]
     pub id: i64,
+
+    #[field(max_length = 255)]
     pub name: String,
+
+    #[field(max_length = 255)]
     pub category: String,
+
     pub price: i64,
     pub quantity: i64,
+
+    #[field(default = false)]
     pub active: bool,
-    pub tags: Vec<String>,
-    pub rating: Rating,
+
+    #[field(max_length = 4096)]
+    pub tags: Option<String>,
+    pub rating_score: i64,
+    pub rating_count: i64,
 }
 
-#[derive(Serialize, Deserialize, Clone)]
-pub struct RatingOut {
-    pub score: i64,
-    pub count: i64,
-}
-
-#[derive(Serialize)]
-pub struct ProcessedItem<'a> {
+/// The reference fortunes dataset rendered by the fortunes profile.
+#[model(app_label = "benchmark", table_name = "fortune")]
+#[derive(serde::Deserialize, serde::Serialize, Clone)]
+pub struct Fortune {
+    #[field(primary_key = true)]
     pub id: i64,
-    pub name: &'a str,
-    pub category: &'a str,
-    pub price: i64,
-    pub quantity: i64,
-    pub active: bool,
-    pub tags: &'a [String],
-    pub rating: RatingOut,
-    pub total: i64,
-}
 
-#[derive(Serialize)]
-pub struct JsonResponse<'a> {
-    pub items: Vec<ProcessedItem<'a>>,
-    pub count: usize,
-}
-
-#[derive(Serialize, Deserialize, Clone)]
-pub struct DbItem {
-    pub id: i64,
-    pub name: String,
-    pub category: String,
-    pub price: i64,
-    pub quantity: i64,
-    pub active: bool,
-    pub tags: serde_json::Value,
-    pub rating: RatingOut,
-}
-
-#[derive(Serialize)]
-pub struct DbResponse {
-    pub items: Vec<DbItem>,
-    pub count: usize,
-}
-
-#[derive(Deserialize, Serialize)]
-pub struct CrudCreate {
-    pub id: i64,
-    pub name: String,
-    pub category: String,
-    pub price: i64,
-    pub quantity: i64,
-    #[serde(default)]
-    pub active: bool,
-    #[serde(default = "empty_tags")]
-    pub tags: serde_json::Value,
-}
-
-#[derive(Deserialize)]
-pub struct CrudUpdate {
-    pub name: Option<String>,
-    pub category: Option<String>,
-    pub price: Option<i64>,
-    pub quantity: Option<i64>,
-}
-
-fn empty_tags() -> serde_json::Value {
-    serde_json::Value::Array(Vec::new())
+    #[field(max_length = 255)]
+    pub message: String,
 }

@@ -37,7 +37,7 @@ serve static assets at the edge, and proxy dynamic requests to Reinhardt over
 HTTP/1.1.
 
 Native `baseline-h3` and `static-h3` are intentionally not subscribed because
-Reinhardt 0.3.3 does not expose a native HTTP/3 server. HTTP/3 is covered only
+Reinhardt 0.3.5 does not expose a native HTTP/3 server. HTTP/3 is covered only
 by the production-style gateway profile.
 
 ## Local validation

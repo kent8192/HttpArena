@@ -7,5 +7,5 @@ use reinhardt::urls::prelude::UnifiedRouter;
 
 #[routes]
 pub fn routes() -> UnifiedRouter {
-    UnifiedRouter::new()
+    UnifiedRouter::new().mount("/", crate::apps::benchmark::urls::server_url_patterns())
 }

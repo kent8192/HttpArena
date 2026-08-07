@@ -7,15 +7,17 @@ use std::sync::Arc;
 
 use bytes::Bytes;
 use http_body_util::{BodyExt, Full};
-use httparena_reinhardt::apps::benchmark::{ArenaHandler, load_dataset};
+use httparena_reinhardt::apps::benchmark::{
+    ArenaRouter, ArenaState, initialize_state, load_dataset,
+};
 use hyper::Method;
 use hyper::body::Incoming;
 use hyper::server::conn::{http1, http2};
 use hyper::service::service_fn;
 use hyper_util::rt::TokioIo;
+use reinhardt::DatabaseConnection;
 use reinhardt::http::{Handler, Request, Response};
 use reinhardt::server::serve_http2;
-use reinhardt_db::backends::DatabaseConnection;
 use tokio::net::TcpListener;
 use tokio_rustls::TlsAcceptor;
 
@@ -38,7 +40,7 @@ fn load_tls_config(alpn_protocols: Vec<Vec<u8>>) -> io::Result<rustls::ServerCon
 
 async fn serve_tls_http1(
     addr: SocketAddr,
-    handler: ArenaHandler,
+    handler: ArenaRouter,
 ) -> Result<(), Box<dyn std::error::Error>> {
     let acceptor = TlsAcceptor::from(Arc::new(load_tls_config(vec![b"http/1.1".to_vec()])?));
     let listener = TcpListener::bind(addr).await?;
@@ -62,7 +64,7 @@ async fn serve_tls_http1(
 
 async fn serve_plain_http1(
     addr: SocketAddr,
-    handler: ArenaHandler,
+    handler: ArenaRouter,
 ) -> Result<(), Box<dyn std::error::Error>> {
     let listener = TcpListener::bind(addr).await?;
     loop {
@@ -81,7 +83,7 @@ async fn serve_plain_http1(
 
 async fn serve_tls_http2(
     addr: SocketAddr,
-    handler: ArenaHandler,
+    handler: ArenaRouter,
 ) -> Result<(), Box<dyn std::error::Error>> {
     let acceptor = TlsAcceptor::from(Arc::new(load_tls_config(vec![b"h2".to_vec()])?));
     let listener = TcpListener::bind(addr).await?;
@@ -105,7 +107,7 @@ async fn serve_tls_http2(
 
 async fn handle_hyper_request(
     request: hyper::Request<Incoming>,
-    handler: ArenaHandler,
+    handler: ArenaRouter,
     secure: bool,
     remote_addr: Option<SocketAddr>,
 ) -> Result<hyper::Response<Full<Bytes>>, Infallible> {
@@ -149,15 +151,18 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let static_dir =
         PathBuf::from(std::env::var("STATIC_DIR").unwrap_or_else(|_| "/data/static".to_string()));
-    let mut handler = ArenaHandler::new(load_dataset(), static_dir);
+    let mut state = ArenaState::new(load_dataset(), static_dir);
     if let Ok(database_url) = std::env::var("DATABASE_URL") {
         let pool_size = std::env::var("DATABASE_MAX_CONN")
             .ok()
             .and_then(|value| value.parse::<u32>().ok());
-        let database =
-            DatabaseConnection::connect_postgres_with_pool_size(&database_url, pool_size).await?;
-        handler = handler.with_database(database);
+        let database = DatabaseConnection::connect_with_pool_size(&database_url, pool_size).await?;
+        state = state.with_database(database);
     }
+    if initialize_state(state).is_err() {
+        panic!("benchmark state must only be initialized once");
+    }
+    let handler = ArenaRouter::new();
 
     let h1_addr = SocketAddr::from(([0, 0, 0, 0], 8080));
     if std::env::var("HTTPARENA_GATEWAY_MODE").as_deref() == Ok("1") {

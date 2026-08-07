@@ -24,9 +24,9 @@ http-body-util = "0.1"
 hyper = { version = "1", features = ["full"] }
 hyper-util = { version = "0.1", features = ["server", "http1", "http2", "tokio"] }
 num_cpus = "1"
-reinhardt = { version = "=0.3.3", package = "reinhardt-web", default-features = false, features = ["minimal", "conf", "commands", "db-postgres", "cache"] }
-reinhardt-db = { version = "=0.3.3", default-features = false, features = ["backends", "postgres"] }
-reinhardt-middleware = { version = "=0.3.3", default-features = false, features = ["compression"] }
+reinhardt = { version = "=0.3.5", package = "reinhardt-web", default-features = false, features = ["minimal", "conf", "commands", "db-postgres", "cache", "di"] }
+reinhardt-db = { version = "=0.3.5", default-features = false, features = ["backends", "postgres"] }
+reinhardt-middleware = { version = "=0.3.5", default-features = false, features = ["compression"] }
 rustls = "0.23"
 rustls-pemfile = "2"
 serde = { version = "1", features = ["derive"] }

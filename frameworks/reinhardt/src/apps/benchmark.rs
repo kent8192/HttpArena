@@ -10,7 +10,7 @@ pub mod tests;
 pub mod urls;
 pub mod views;
 
-pub use views::{ArenaHandler, load_dataset};
+pub use services::{ArenaRouter, ArenaState, initialize_state, load_dataset};
 
 #[app_config(name = "benchmark", label = "benchmark")]
 pub struct BenchmarkConfig;

@@ -1,10 +1,10 @@
 # Reinhardt WebSocket for HttpArena
 
-This entry benchmarks Reinhardt 0.3.3 WebSocket message handling over the
-framework-compatible Tokio Tungstenite transport.
+This entry benchmarks Reinhardt 0.4.0-alpha.8 WebSocket routing and message
+handling through the framework's native upgrade transport.
 
 The server listens on `ws://localhost:8080/ws` and echoes text and binary
-messages while preserving ping payloads and close frames.
+messages while the framework handles ping/pong and close frames.
 
 The crate follows the Reinhardt REST project layout produced by
 `startproject`, with the benchmark registered as a `startapp --with-rest`

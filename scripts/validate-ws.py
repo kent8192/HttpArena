@@ -119,6 +119,7 @@ def test_upgrade():
     req = (
         f"GET {PATH} HTTP/1.1\r\n"
         f"Host: {HOST}:{PORT}\r\n"
+        f"Origin: http://localhost:8080\r\n"
         f"Upgrade: websocket\r\n"
         f"Connection: Upgrade\r\n"
         f"Sec-WebSocket-Key: {key}\r\n"
@@ -275,6 +276,7 @@ key2 = make_ws_key()
 req2 = (
     f"GET {PATH} HTTP/1.1\r\n"
     f"Host: {HOST}:{PORT}\r\n"
+    f"Origin: http://localhost:8080\r\n"
     f"Upgrade: websocket\r\n"
     f"Connection: Upgrade\r\n"
     f"Sec-WebSocket-Key: {key2}\r\n"

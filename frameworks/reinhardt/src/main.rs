@@ -15,9 +15,10 @@ use hyper::body::Incoming;
 use hyper::server::conn::{http1, http2};
 use hyper::service::service_fn;
 use hyper_util::rt::TokioIo;
-use reinhardt::DatabaseConnection;
 use reinhardt::http::{Handler, Request, Response};
 use reinhardt::server::serve_http2;
+use reinhardt_db::backends::DatabaseConnection as BackendsConnection;
+use reinhardt_db::orm::DatabaseConnectionLease;
 use tokio::net::TcpListener;
 use tokio_rustls::TlsAcceptor;
 
@@ -156,8 +157,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         let pool_size = std::env::var("DATABASE_MAX_CONN")
             .ok()
             .and_then(|value| value.parse::<u32>().ok());
-        let database = DatabaseConnection::connect_with_pool_size(&database_url, pool_size).await?;
-        state = state.with_database(database);
+        let owner =
+            BackendsConnection::connect_postgres_with_pool_size(&database_url, pool_size).await?;
+        let database_lease = DatabaseConnectionLease::register(owner)?;
+        let database = database_lease.handle();
+        state = state.with_database(database_lease, database);
     }
     if initialize_state(state).is_err() {
         panic!("benchmark state must only be initialized once");

@@ -1,7 +1,7 @@
 # Reinhardt gRPC for HttpArena
 
-This entry benchmarks the gRPC surface of Reinhardt 0.3.5 using the
-framework's gRPC configuration and its compatible Tonic transport.
+This entry benchmarks the gRPC surface of Reinhardt 0.4.0-alpha.8 using the
+framework's `GrpcRouter` and its compatible Tonic transport.
 
 - Plaintext HTTP/2: `:8080`
 - TLS HTTP/2: `:8443`
@@ -10,11 +10,11 @@ framework's gRPC configuration and its compatible Tonic transport.
 The crate follows the Reinhardt REST project layout produced by
 `startproject`, with the benchmark registered as a `startapp --with-rest`
 application. gRPC handlers live in `src/apps/benchmark/views.rs`; project
-startup and configuration stay under `src/bin/manage.rs` and `src/config/`.
-The benchmark server is started through the project management entry point:
+startup and routing stay under `src/main.rs` and `src/config/`.
+The benchmark server is started through the project binary:
 
 ```bash
-cargo run --bin manage -- rungrpc
+cargo run --bin httparena-reinhardt-grpc
 ```
 
 Run validation from the repository root:

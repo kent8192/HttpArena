@@ -7,6 +7,7 @@ use async_trait::async_trait;
 use reinhardt::http::{Handler, Middleware, Request, Response};
 use reinhardt::utils::cache::InMemoryCache;
 use reinhardt::{DatabaseConnection, ServerRouter};
+use reinhardt_db::orm::DatabaseConnectionLease;
 use reinhardt_middleware::{BrotliMiddleware, GZipMiddleware};
 
 use super::serializers::DatasetItem;
@@ -16,6 +17,7 @@ pub struct ArenaState {
     dataset: Vec<DatasetItem>,
     static_dir: PathBuf,
     database: Option<DatabaseConnection>,
+    _database_lease: Option<DatabaseConnectionLease>,
     crud_cache: InMemoryCache,
 }
 
@@ -25,11 +27,17 @@ impl ArenaState {
             dataset,
             static_dir,
             database: None,
+            _database_lease: None,
             crud_cache: InMemoryCache::new(),
         }
     }
 
-    pub fn with_database(mut self, database: DatabaseConnection) -> Self {
+    pub fn with_database(
+        mut self,
+        database_lease: DatabaseConnectionLease,
+        database: DatabaseConnection,
+    ) -> Self {
+        self._database_lease = Some(database_lease);
         self.database = Some(database);
         self
     }
@@ -42,8 +50,8 @@ impl ArenaState {
         &self.static_dir
     }
 
-    pub fn database(&self) -> Option<&DatabaseConnection> {
-        self.database.as_ref()
+    pub fn database(&self) -> Option<DatabaseConnection> {
+        self.database.as_ref().copied()
     }
 
     pub fn crud_cache(&self) -> &InMemoryCache {

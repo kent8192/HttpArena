@@ -2,7 +2,6 @@
 
 use reinhardt::app_config;
 
-pub mod management;
 pub mod urls;
 pub mod views;
 

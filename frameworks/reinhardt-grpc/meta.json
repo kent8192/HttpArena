@@ -4,7 +4,7 @@
   "type": "emerging",
   "mode": "standard",
   "engine": "reinhardt-grpc",
-  "description": "Reinhardt 0.3.5 gRPC support with the framework's GrpcServerSettings and its compatible Tonic transport. Plaintext HTTP/2 is served on :8080 and TLS HTTP/2 on :8443.",
+  "description": "Reinhardt 0.4.0-alpha.8 gRPC support with the framework's GrpcRouter and GrpcServerSettings. Plaintext HTTP/2 is served on :8080 and TLS HTTP/2 on :8443.",
   "repo": "https://github.com/kent8192/reinhardt-web",
   "enabled": true,
   "tests": [

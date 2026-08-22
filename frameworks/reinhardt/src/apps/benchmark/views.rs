@@ -95,7 +95,7 @@ pub async fn async_db(request: Request) -> ViewResult<Response> {
     let min = query_i64_default(&request, "min", 10);
     let max = query_i64_default(&request, "max", 50);
     let limit = query_i64_default(&request, "limit", 50).clamp(1, 50) as usize;
-    let Some(database) = state().database() else {
+    let Some(mut database) = state().database() else {
         return Ok(json(
             StatusCode::SERVICE_UNAVAILABLE,
             &DbResponse {
@@ -109,7 +109,7 @@ pub async fn async_db(request: Request) -> ViewResult<Response> {
         .filter(Item::field_price().gte(min))
         .filter(Item::field_price().lte(max))
         .limit(limit)
-        .all_with_db(database)
+        .all_with_db(&mut database)
         .await
     {
         Ok(items) => {
@@ -126,12 +126,12 @@ pub async fn crud_list(request: Request) -> ViewResult<Response> {
     let category = request
         .query_params
         .get("category")
-        .cloned()
-        .unwrap_or_else(|| "electronics".to_string());
+        .unwrap_or("electronics")
+        .to_owned();
     let page = query_i64_default(&request, "page", 1).max(1);
     let limit = query_i64_default(&request, "limit", 10).clamp(1, 50);
     let offset = (page - 1) * limit;
-    let Some(database) = state().database() else {
+    let Some(mut database) = state().database() else {
         return Ok(text_response(
             StatusCode::SERVICE_UNAVAILABLE,
             "Database unavailable",
@@ -143,7 +143,7 @@ pub async fn crud_list(request: Request) -> ViewResult<Response> {
         .order_by(&["id"])
         .limit(limit as usize)
         .offset(offset as usize)
-        .all_with_db(database)
+        .all_with_db(&mut database)
         .await
     {
         Ok(items) => {
@@ -168,14 +168,14 @@ pub async fn crud_read(Path(id): Path<i64>) -> ViewResult<Response> {
     if let Ok(Some(body)) = state().crud_cache().get::<Vec<u8>>(&cache_key).await {
         return Ok(response(StatusCode::OK, "application/json", body).with_header("X-Cache", "HIT"));
     }
-    let Some(database) = state().database() else {
+    let Some(mut database) = state().database() else {
         return Ok(text_response(
             StatusCode::SERVICE_UNAVAILABLE,
             "Database unavailable",
         ));
     };
 
-    match Item::objects().get(id).all_with_db(database).await {
+    match Item::objects().get(id).all_with_db(&mut database).await {
         Ok(items) => match items.first() {
             Some(item) => {
                 let body = serde_json::to_vec(&DbItem::from(item)).unwrap_or_default();
@@ -209,8 +209,7 @@ pub async fn crud_create(Json(input): Json<CrudCreate>) -> ViewResult<Response> 
         .rating_count(0)
         .finish();
 
-    // The 0.3.5 ORM's PostgreSQL binder does not cast JSONB parameters. Keep
-    // the domain value in `Item`, while supplying the required database cast.
+    // PostgreSQL requires an explicit JSONB cast for this raw string parameter.
     match database
         .execute(
             "INSERT INTO items (id, name, category, price, quantity, active, tags, rating_score, rating_count) \
@@ -247,13 +246,13 @@ pub async fn crud_update(
     Path(id): Path<i64>,
     Json(input): Json<CrudUpdate>,
 ) -> ViewResult<Response> {
-    let Some(database) = state().database() else {
+    let Some(mut database) = state().database() else {
         return Ok(text_response(
             StatusCode::SERVICE_UNAVAILABLE,
             "Database unavailable",
         ));
     };
-    let items = match Item::objects().get(id).all_with_db(database).await {
+    let items = match Item::objects().get(id).all_with_db(&mut database).await {
         Ok(items) => items,
         Err(error) => return Ok(database_error_response(error)),
     };
@@ -296,13 +295,13 @@ pub async fn crud_update(
 
 #[get("/fortunes", name = "fortunes")]
 pub async fn fortunes() -> ViewResult<Response> {
-    let Some(database) = state().database() else {
+    let Some(mut database) = state().database() else {
         return Ok(text_response(
             StatusCode::SERVICE_UNAVAILABLE,
             "Database unavailable",
         ));
     };
-    let mut fortunes = match Fortune::objects().all().all_with_db(database).await {
+    let mut fortunes = match Fortune::objects().all().all_with_db(&mut database).await {
         Ok(fortunes) => fortunes,
         Err(error) => return Ok(database_error_response(error)),
     };

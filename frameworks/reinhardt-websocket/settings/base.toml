@@ -1,7 +1,7 @@
 [core]
 debug = false
 secret_key = "httparena-benchmark-only-not-for-production"
-allowed_hosts = []
+allowed_hosts = ["localhost", "127.0.0.1"]
 language_code = "en-us"
 time_zone = "UTC"
 use_i18n = true
@@ -24,8 +24,9 @@ secure_hsts_preload = false
 append_slash = true
 
 [core.databases.default]
-engine = "postgresql"
-host = "localhost"
-port = 5432
-name = "httparena_reinhardt_websocket"
-user = "postgres"
+engine = "sqlite"
+name = ":memory:"
+
+[ws_origin]
+policy = { mode = "allow_list", origins = ["http://localhost:8080"] }
+reject_missing_origin = true

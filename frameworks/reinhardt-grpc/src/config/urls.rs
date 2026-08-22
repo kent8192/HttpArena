@@ -6,7 +6,7 @@ use tonic::transport::{Identity, Server, ServerTlsConfig};
 
 #[routes]
 pub fn routes() -> UnifiedRouter {
-    UnifiedRouter::new().mount("/", crate::apps::benchmark::urls::server_url_patterns())
+    UnifiedRouter::new().merge(crate::apps::benchmark::urls::url_patterns())
 }
 
 pub async fn serve_grpc() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
@@ -23,11 +23,11 @@ pub async fn serve_grpc() -> Result<(), Box<dyn std::error::Error + Send + Sync>
     println!("Reinhardt gRPC server listening on :8080 and :8443");
 
     let plaintext = Server::builder()
-        .add_service(crate::apps::benchmark::urls::grpc_service())
+        .add_routes(crate::apps::benchmark::urls::grpc_services().build_routes())
         .serve("0.0.0.0:8080".parse()?);
     let tls = Server::builder()
         .tls_config(ServerTlsConfig::new().identity(identity))?
-        .add_service(crate::apps::benchmark::urls::grpc_service())
+        .add_routes(crate::apps::benchmark::urls::grpc_services().build_routes())
         .serve("0.0.0.0:8443".parse()?);
 
     tokio::try_join!(plaintext, tls)?;

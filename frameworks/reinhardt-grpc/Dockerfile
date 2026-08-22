@@ -9,16 +9,15 @@ COPY Cargo.toml Cargo.lock ./
 COPY build.rs ./
 COPY proto ./proto
 RUN mkdir -p src \
-    && mkdir -p src/bin \
-    && printf 'fn main() {}\n' > src/bin/manage.rs \
-    && cargo build --release --locked --bin manage \
-    && rm -rf src target/release/manage target/release/deps/httparena_reinhardt_grpc*
+    && printf 'fn main() {}\n' > src/main.rs \
+    && cargo build --release --locked --bin httparena-reinhardt-grpc \
+    && rm -rf src target/release/httparena-reinhardt-grpc target/release/deps/httparena_reinhardt_grpc*
 
 COPY src ./src
-RUN RUSTFLAGS="-C target-cpu=native" cargo build --release --locked --bin manage
+RUN RUSTFLAGS="-C target-cpu=native" cargo build --release --locked --bin httparena-reinhardt-grpc
 
 FROM debian:bookworm-slim
-COPY --from=build /app/target/release/manage /server
+COPY --from=build /app/target/release/httparena-reinhardt-grpc /server
 COPY settings /app/settings
 EXPOSE 8080 8443
-ENTRYPOINT ["/server", "rungrpc"]
+ENTRYPOINT ["/server"]

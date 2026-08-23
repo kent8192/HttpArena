@@ -1,0 +1,32 @@
+[core]
+debug = false
+secret_key = "httparena-benchmark-only-not-for-production"
+allowed_hosts = ["localhost", "127.0.0.1"]
+language_code = "en-us"
+time_zone = "UTC"
+use_i18n = true
+use_tz = true
+default_auto_field = "BigAutoField"
+middleware = []
+root_urlconf = ""
+
+[contacts]
+admins = []
+managers = []
+
+[core.security]
+session_cookie_secure = false
+csrf_cookie_secure = false
+secure_ssl_redirect = false
+secure_hsts_seconds = 0
+secure_hsts_include_subdomains = false
+secure_hsts_preload = false
+append_slash = true
+
+[core.databases.default]
+engine = "sqlite"
+name = ":memory:"
+
+[ws_origin]
+policy = { mode = "allow_list", origins = ["http://localhost:8080"] }
+reject_missing_origin = true

@@ -1,0 +1,17 @@
+{
+  "display_name": "Reinhardt gRPC",
+  "language": "Rust",
+  "type": "emerging",
+  "mode": "standard",
+  "engine": "reinhardt-grpc",
+  "description": "Reinhardt 0.4.0-alpha.8 gRPC support served from the framework's UnifiedRouter through manage runserver on :8080.",
+  "repo": "https://github.com/kent8192/reinhardt-web",
+  "enabled": true,
+  "tests": [
+    "unary-grpc",
+    "stream-grpc"
+  ],
+  "maintainers": [
+    "kent8192"
+  ]
+}

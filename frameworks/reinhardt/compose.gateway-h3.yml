@@ -31,7 +31,6 @@ services:
     security_opt:
       - seccomp:unconfined
     environment:
-      - HTTPARENA_GATEWAY_MODE=1
       - DATABASE_URL=${DATABASE_URL}
       - DATABASE_MAX_CONN=${DATABASE_MAX_CONN:-256}
       - DATABASE_POOL_MAX_CONNECTIONS=${DATABASE_MAX_CONN:-256}

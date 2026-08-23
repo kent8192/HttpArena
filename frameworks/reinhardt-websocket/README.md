@@ -9,7 +9,7 @@ messages while the framework handles ping/pong and close frames.
 The crate follows the Reinhardt REST project layout produced by
 `startproject`, with the benchmark registered as a `startapp --with-rest`
 application. WebSocket handlers live in `src/apps/benchmark/views.rs`;
-project startup and configuration stay under `src/main.rs` and `src/config/`.
+project startup and configuration stay under `src/bin/manage.rs` and `src/config/`.
 
 Run validation from the repository root:
 

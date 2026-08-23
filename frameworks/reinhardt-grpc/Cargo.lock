@@ -1812,7 +1812,6 @@ dependencies = [
  "prost",
  "reinhardt-di",
  "reinhardt-web",
- "rustls",
  "serde",
  "serde_json",
  "tokio",

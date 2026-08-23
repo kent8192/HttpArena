@@ -2,11 +2,11 @@
 name = "httparena-reinhardt-websocket"
 version = "0.1.0"
 edition = "2024"
-default-run = "httparena-reinhardt-websocket"
+default-run = "manage"
 
 [[bin]]
-name = "httparena-reinhardt-websocket"
-path = "src/main.rs"
+name = "manage"
+path = "src/bin/manage.rs"
 
 [dependencies]
 ctor = "0.6"

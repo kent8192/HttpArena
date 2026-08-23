@@ -4,14 +4,12 @@
   "type": "emerging",
   "mode": "standard",
   "engine": "reinhardt-grpc",
-  "description": "Reinhardt 0.4.0-alpha.8 gRPC support with the framework's GrpcRouter and GrpcServerSettings. Plaintext HTTP/2 is served on :8080 and TLS HTTP/2 on :8443.",
+  "description": "Reinhardt 0.4.0-alpha.8 gRPC support served from the framework's UnifiedRouter through manage runserver on :8080.",
   "repo": "https://github.com/kent8192/reinhardt-web",
   "enabled": true,
   "tests": [
     "unary-grpc",
-    "unary-grpc-tls",
-    "stream-grpc",
-    "stream-grpc-tls"
+    "stream-grpc"
   ],
   "maintainers": [
     "kent8192"

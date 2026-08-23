@@ -14,7 +14,7 @@ use super::models::{Fortune, Item};
 use super::serializers::{
     CrudCreate, CrudUpdate, DbItem, DbResponse, JsonResponse, ProcessedItem, RatingOut,
 };
-use super::services::state;
+use super::services::{database, state};
 
 #[get("/pipeline", name = "pipeline")]
 pub async fn pipeline() -> ViewResult<Response> {
@@ -95,7 +95,7 @@ pub async fn async_db(request: Request) -> ViewResult<Response> {
     let min = query_i64_default(&request, "min", 10);
     let max = query_i64_default(&request, "max", 50);
     let limit = query_i64_default(&request, "limit", 50).clamp(1, 50) as usize;
-    let Some(mut database) = state().database() else {
+    let Some(mut database) = database().await else {
         return Ok(json(
             StatusCode::SERVICE_UNAVAILABLE,
             &DbResponse {
@@ -131,7 +131,7 @@ pub async fn crud_list(request: Request) -> ViewResult<Response> {
     let page = query_i64_default(&request, "page", 1).max(1);
     let limit = query_i64_default(&request, "limit", 10).clamp(1, 50);
     let offset = (page - 1) * limit;
-    let Some(mut database) = state().database() else {
+    let Some(mut database) = database().await else {
         return Ok(text_response(
             StatusCode::SERVICE_UNAVAILABLE,
             "Database unavailable",
@@ -168,7 +168,7 @@ pub async fn crud_read(Path(id): Path<i64>) -> ViewResult<Response> {
     if let Ok(Some(body)) = state().crud_cache().get::<Vec<u8>>(&cache_key).await {
         return Ok(response(StatusCode::OK, "application/json", body).with_header("X-Cache", "HIT"));
     }
-    let Some(mut database) = state().database() else {
+    let Some(mut database) = database().await else {
         return Ok(text_response(
             StatusCode::SERVICE_UNAVAILABLE,
             "Database unavailable",
@@ -191,7 +191,7 @@ pub async fn crud_read(Path(id): Path<i64>) -> ViewResult<Response> {
 
 #[post("/crud/items", name = "crud-create")]
 pub async fn crud_create(Json(input): Json<CrudCreate>) -> ViewResult<Response> {
-    let Some(database) = state().database() else {
+    let Some(database) = database().await else {
         return Ok(text_response(
             StatusCode::SERVICE_UNAVAILABLE,
             "Database unavailable",
@@ -246,7 +246,7 @@ pub async fn crud_update(
     Path(id): Path<i64>,
     Json(input): Json<CrudUpdate>,
 ) -> ViewResult<Response> {
-    let Some(mut database) = state().database() else {
+    let Some(mut database) = database().await else {
         return Ok(text_response(
             StatusCode::SERVICE_UNAVAILABLE,
             "Database unavailable",
@@ -295,7 +295,7 @@ pub async fn crud_update(
 
 #[get("/fortunes", name = "fortunes")]
 pub async fn fortunes() -> ViewResult<Response> {
-    let Some(mut database) = state().database() else {
+    let Some(mut database) = database().await else {
         return Ok(text_response(
             StatusCode::SERVICE_UNAVAILABLE,
             "Database unavailable",

@@ -9,4 +9,5 @@ use reinhardt::urls::prelude::UnifiedRouter;
 pub fn routes() -> UnifiedRouter {
     UnifiedRouter::new()
         .server(|server| server.mount("/", crate::apps::benchmark::urls::server_url_patterns()))
+        .with_middleware(crate::apps::benchmark::services::CompressionMiddleware::new())
 }

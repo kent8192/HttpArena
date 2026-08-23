@@ -1,3 +1,5 @@
+//! Project management command entry point.
+
 use httparena_reinhardt_websocket as _;
 use httparena_reinhardt_websocket::get_settings;
 use reinhardt::commands::execute_from_command_line_with_settings;

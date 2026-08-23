@@ -22,8 +22,10 @@ mod native {
     // Referencing `get_settings` alone does not guarantee the whole crate
     // (and thus every inventory entry) is linked.
     use httparena_reinhardt as _;
+    use httparena_reinhardt::apps::benchmark::{ArenaState, initialize_state, load_dataset};
     use httparena_reinhardt::config::settings::get_settings;
     use reinhardt::commands::execute_from_command_line_with_settings;
+    use std::path::PathBuf;
     use std::process;
 
     #[tokio::main]
@@ -35,6 +37,14 @@ mod native {
                 "REINHARDT_SETTINGS_MODULE",
                 "httparena_reinhardt.config.settings",
             );
+        }
+
+        let static_dir = PathBuf::from(
+            std::env::var("STATIC_DIR").unwrap_or_else(|_| "/data/static".to_string()),
+        );
+        if initialize_state(ArenaState::new(load_dataset(), static_dir)).is_err() {
+            eprintln!("Error: benchmark state was already initialized");
+            process::exit(1);
         }
 
         // Hand the project's composed settings to the runtime so that

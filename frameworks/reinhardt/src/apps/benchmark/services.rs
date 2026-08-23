@@ -6,8 +6,6 @@ use std::sync::{Arc, OnceLock};
 use async_trait::async_trait;
 use reinhardt::http::{Handler, Middleware, Request, Response};
 use reinhardt::utils::cache::InMemoryCache;
-use reinhardt::{DatabaseConnection, ServerRouter};
-use reinhardt_db::orm::DatabaseConnectionLease;
 use reinhardt_middleware::{BrotliMiddleware, GZipMiddleware};
 
 use super::serializers::DatasetItem;
@@ -16,8 +14,6 @@ use super::serializers::DatasetItem;
 pub struct ArenaState {
     dataset: Vec<DatasetItem>,
     static_dir: PathBuf,
-    database: Option<DatabaseConnection>,
-    _database_lease: Option<DatabaseConnectionLease>,
     crud_cache: InMemoryCache,
 }
 
@@ -26,20 +22,8 @@ impl ArenaState {
         Self {
             dataset,
             static_dir,
-            database: None,
-            _database_lease: None,
             crud_cache: InMemoryCache::new(),
         }
-    }
-
-    pub fn with_database(
-        mut self,
-        database_lease: DatabaseConnectionLease,
-        database: DatabaseConnection,
-    ) -> Self {
-        self._database_lease = Some(database_lease);
-        self.database = Some(database);
-        self
     }
 
     pub fn dataset(&self) -> &[DatasetItem] {
@@ -48,10 +32,6 @@ impl ArenaState {
 
     pub fn static_dir(&self) -> &Path {
         &self.static_dir
-    }
-
-    pub fn database(&self) -> Option<DatabaseConnection> {
-        self.database.as_ref().copied()
     }
 
     pub fn crud_cache(&self) -> &InMemoryCache {
@@ -71,18 +51,20 @@ pub fn state() -> &'static ArenaState {
         .expect("benchmark state must be initialized before serving requests")
 }
 
-/// Adapts the macro-registered application router to the benchmark listeners.
+pub async fn database() -> Option<reinhardt::DatabaseConnection> {
+    reinhardt_db::orm::get_connection().await.ok()
+}
+
+/// Applies the benchmark's negotiated response compression.
 #[derive(Clone)]
-pub struct ArenaRouter {
-    router: Arc<ServerRouter>,
+pub struct CompressionMiddleware {
     gzip: Arc<GZipMiddleware>,
     brotli: Arc<BrotliMiddleware>,
 }
 
-impl ArenaRouter {
+impl CompressionMiddleware {
     pub fn new() -> Self {
         Self {
-            router: Arc::new(super::urls::server_url_patterns()),
             gzip: Arc::new(GZipMiddleware::new()),
             brotli: Arc::new(BrotliMiddleware::new()),
         }
@@ -90,22 +72,25 @@ impl ArenaRouter {
 }
 
 #[async_trait]
-impl Handler for ArenaRouter {
-    async fn handle(&self, request: Request) -> reinhardt::http::Result<Response> {
+impl Middleware for CompressionMiddleware {
+    async fn process(
+        &self,
+        request: Request,
+        next: Arc<dyn Handler>,
+    ) -> reinhardt::http::Result<Response> {
         let accepted = request
             .headers
-            .get(hyper::header::ACCEPT_ENCODING)
+            .get("accept-encoding")
             .and_then(|value| value.to_str().ok())
             .unwrap_or_default()
             .to_ascii_lowercase();
-        let inner: Arc<dyn Handler> = self.router.clone();
 
         if accepted.contains("br") {
-            self.brotli.process(request, inner).await
+            self.brotli.process(request, next).await
         } else if accepted.contains("gzip") {
-            self.gzip.process(request, inner).await
+            self.gzip.process(request, next).await
         } else {
-            self.router.handle(request).await
+            next.handle(request).await
         }
     }
 }

@@ -4,7 +4,7 @@
   "type": "emerging",
   "mode": "standard",
   "engine": "reinhardt",
-  "description": "Reinhardt 0.4.0-alpha.8 adapted for HttpArena. Reinhardt handlers and middleware run on Hyper-compatible HTTP/1.1 listeners at :8080/:8081, Reinhardt's HTTP/2 helper serves h2c on :8082, and rustls serves HTTP/2 on :8443. The entry includes database, CRUD, Fortunes, API mix, and Caddy gateway profiles.",
+  "description": "Reinhardt 0.4.0-alpha.8 adapted for HttpArena. The framework's manage runserver command serves the UnifiedRouter on :8080. The entry includes database, CRUD, Fortunes, API mix, and Caddy gateway profiles.",
   "repo": "https://github.com/kent8192/reinhardt-web",
   "enabled": true,
   "tests": [
@@ -13,7 +13,6 @@
     "limited-conn",
     "json",
     "json-comp",
-    "json-tls",
     "upload",
     "static",
     "async-db",
@@ -21,10 +20,6 @@
     "fortunes",
     "api-4",
     "api-16",
-    "baseline-h2",
-    "static-h2",
-    "baseline-h2c",
-    "json-h2c",
     "gateway-64",
     "gateway-h3"
   ],
